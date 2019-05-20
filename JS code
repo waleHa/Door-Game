@@ -1,0 +1,286 @@
+
+<html>
+	<head>
+		<title>Door Game</title>
+		<style>
+			h1, h4, h3, h4 {
+				display: inline;
+				font-family:sans-serif;
+			}
+			body{
+				padding: 140px 140px 140px 150px;
+				background:#cccccc  center center no-repeat;
+			}
+			p {
+				 font-family:sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		
+    <script type="text/javascript">
+						
+			// This is to determine the card type
+		function card(n){
+			n=(n%13)+1;
+				if (n==1){
+					return "Ace";}
+				else if (n==2){
+					return "Two";}
+				else if (n==3){
+					return "Three";}
+				else if (n==4){
+					return "Four";}
+				else if (n==5){
+					return "Five";}
+				else if (n==6){
+					return "Six";}
+				else if (n==7){
+					return "Seven";}
+				else if (n==8){
+					return "Eight";}
+				else if (n==9){
+					return "Nine";}
+				else if (n==10){
+					return "Ten";}
+				else if (n==11){
+					return "Jack";}
+				else if (n==12){
+					return "Queen";}
+				else if (n==13){
+					return "King";}
+			}
+			
+			// This function is to determine the entered card suit
+			function suit(n){
+					if (n<=13){
+						return "Spade";
+						//"Spade"
+					}
+					else if (n<=26){
+						
+						return "Heart";
+						//"Heart"
+					}						
+					else if (n<=39){
+						
+						return "Club";
+						//"Club"
+					}
+					else{
+						
+						return "Diamond";
+						//"Diamond"
+					}
+			}
+			// This function is to print a new line
+			function levelZero(){
+				document.write("<br>");
+			}
+			
+			/***************Main Program****************/
+			
+			var x;
+			var z=0;
+			var y=0;
+			var path= 0;
+      
+      for(i=0;i<100000*5;i++){
+				
+				n=Math.floor(Math.random() * Math.floor(53));	
+					z=i%5;
+        
+				//Here is level zero
+				if (z==0)
+				{
+					levelZero();
+					x=suit(n);    
+					document.write("<h3>Level Zero:</h3> ");
+						if (x=="Spade"){
+							document.write("Spade, ");
+							y=card(n);
+							document.write(y);
+							document.write("=Black");
+							//path[0]=0;
+						}
+						else if (x=="Club"){
+							document.write("Club, ");
+							y=card(n);
+							document.write(y);
+							document.write("=Black");
+							//path[0]=0;
+						}
+						else if (x=="Heart"){
+							document.write("Heart, ");
+							y=card(n);
+							document.write(y);
+							document.write("=Red");	
+							path[0]++;
+						}
+						else if	(x=="Diamond"){
+							document.write("Diamond, ");
+							y=card(n);
+							document.write(y);
+							document.write("=Red");	
+							path[0]++;
+						}
+                }
+				
+				//Here is level One
+				else if (i%5==1)
+				{
+					x=suit(n);    
+					document.write(", <h3>Level One:</h3> ");
+						if (x=="Spade"){
+							document.write("Spade, ");
+							y=card(n);
+							document.write(y);
+							if(path ==0){
+								document.write(" <h3>TRAP (-2)</h3>");
+								i=i+3;
+							}
+						}
+						else if (x=="Club"){
+							document.write("Club, ");
+							y=card(n);
+							document.write(y);
+							document.write(" <h3>TRAP (-2)</h3>");
+							i=i+3;
+						}
+						else if (x=="Heart"){
+							document.write("Heart, ");
+							y=card(n);
+							document.write(y);
+						}
+						else if	(x=="Diamond"){
+							document.write("Diamond, ");
+							y=card(n);
+							document.write(y);
+						}
+				}	
+				
+				//Here is level Two
+				else if (i%5==2)
+				{
+					x=suit(n);    
+					document.write(", <h3>Level Two</h3>: ");
+						if (x=="Spade"){
+							document.write("Spade, ");
+							y=card(n);
+							document.write(y);
+							n=(n%13)+1;
+							if (n<=10){
+								document.write(" <h3>TRAP (-1)</h3>");
+								i=i+2;
+							}	
+						}
+						else if (x=="Club"){
+							document.write("Club, ");
+							y=card(n);
+							document.write(y);
+							n=(n%13)+1;
+							if (n<=10){
+								document.write(" <h3>TRAP (-1)</h3>");
+								i=i+2;
+							}
+						}
+						else if (x=="Heart"){
+							document.write("Heart, ");
+							y=card(n);	
+							document.write(y);
+							n=(n%13)+1;
+							if (n<=10){
+								document.write(" <h3>TRAP (-1)</h3>");
+								i=i+2;
+							}
+						}
+						else if	(x=="Diamond"){
+							document.write("Diamond, ");
+							y=card(n);
+							document.write(y);
+							n=(n%13)+1;
+							if (n<=10){
+								document.write(" <h3>TRAP (-1)</h3>");
+								i=i+2;
+							}
+						}
+				}	
+
+				//Here is level Three
+				else if (i%5==3)
+				{
+					x=suit(n);    
+					document.write(", <h3>Level Three:</h3> ");
+						if (x=="Spade"){
+							document.write("Spade, ");
+							y=card(n);
+							document.write(y);
+							if (y=="Ace" ||y=="King"){
+								document.write(" <h3>TRAP (0)</h3>");
+								i++;
+							}
+						}
+
+						else if (x=="Club"){
+							document.write("Club, ");
+							y=card(n);
+							document.write(y);
+							if (y=="Ace" ||y=="King"){
+								document.write(" <h3>TRAP (0)</h3>");
+								i++;
+							}	
+						}
+						else if (x=="Heart"){
+							document.write("Heart, ");
+							y=card(n);
+							document.write(y);
+							if (y=="Ace" ||y=="King"){
+								document.write(" <h3>TRAP (0)</h3>");
+								i++;
+							}
+						}
+						else if	(x=="Diamond"){
+							document.write("Diamond, ");
+							y=card(n);
+							document.write(y);
+							if (y=="Ace" ||y=="King"){
+								document.write(" <h3>TRAP (0)</h3>");
+								i++;
+							}
+						}
+				}	
+				
+				//Here is level Four
+				else if (i%5==4)
+				{
+					x=suit(n);    
+					document.write(", <h3>Level Four:</h3> ");
+						if (x=="Spade"){
+							document.write("Spade, ");
+							y=card(n);
+							document.write(y);
+							document.write(" <h3>TRAP (+1)</h3>");
+						}
+						else if (x=="Club"){
+							document.write("Club, ");
+							y=card(n);
+							document.write(y);
+							document.write(" <h3>TRAP (+1)</h3>");
+							}
+						else if (x=="Heart"){
+							document.write("Heart, ");
+							y=card(n);
+							document.write(y);
+							document.write(" <h3>Winner (+4)</h3>");
+						}
+						else if	(x=="Diamond"){
+							document.write("Diamond, ");
+							y=card(n);
+							document.write(y);
+							document.write(" <h3>Winner (+4)</h3>");
+						}		
+				}
+			}
+		</script>
+	</body>
+</html>
